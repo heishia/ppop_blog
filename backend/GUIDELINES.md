@@ -61,6 +61,27 @@ logger.error("Error occurred", exc_info=True)
 
 새로운 패키지를 추가할 때는 `requirements.txt`를 업데이트합니다.
 
+### Utils 함수 관리
+
+재활용 가능한 공통 유틸리티 함수들은 `utils` 폴더에 공통 로직별로 분리하여 관리합니다. 코드 중복을 방지하고 메모리를 절약하기 위함입니다.
+
+- **공통 로직별 분리**: 비슷한 기능의 함수들은 같은 파일에 모아 관리합니다 (예: `string_utils.py`, `time_utils.py`, `validation_utils.py`)
+- **재사용성 우선**: 여러 곳에서 사용될 가능성이 있는 함수는 `utils` 폴더에 배치합니다
+- **순수 함수**: 가능한 한 부작용이 없는 순수 함수로 작성합니다
+- **타입 힌트 필수**: 모든 함수에 타입 힌트를 명시합니다
+- **문서화**: 각 함수에 docstring을 작성합니다
+
+```python
+# 올바른 예시
+from backend.utils.string_utils import slugify
+from backend.utils.time_utils import now_str
+
+# 잘못된 예시 (각 서비스에 중복 구현)
+# service1.py, service2.py에 동일한 slugify 함수가 각각 존재
+```
+
+자세한 내용은 `utils/README.md`를 참고하세요.
+
 ## 작성 규칙
 
 함수, 클래스, 실행부로 구성된 모듈 파일 구조를 따릅니다.
